@@ -17,7 +17,7 @@
  */
 .splash-container {
   background: #074e68;
-  background-image: url(/img/clock-face.jpg);
+  background-image: url(/images/clock-face.jpg);
   background-size: cover;
   background-repeat: no-repeat;
   z-index: 1;

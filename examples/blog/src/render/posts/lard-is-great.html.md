@@ -2,7 +2,7 @@
 docId: 1262200515255
 layout: 'post'
 title: 'Lard Is Great'
-img: '/img/lard.jpg'
+img: '/images/lard.jpg'
 tags: ['lard','snacks']
 author: John Smith
 ---

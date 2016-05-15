@@ -2,7 +2,7 @@
 docId: 1262200515233
 layout: 'post'
 title: 'Bacon Prosciutto'
-img: '/img/fried-snacks.jpg'
+img: '/images/fried-snacks.jpg'
 tags: ['bacon','snacks']
 author: John Smith
 ---

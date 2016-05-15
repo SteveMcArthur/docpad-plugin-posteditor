@@ -2,7 +2,7 @@
 docId: 1262200515234
 layout: 'post'
 title: 'Pork Scratchings'
-img: '/img/pork-scratchings.jpg'
+img: '/images/pork-scratchings.jpg'
 tags: ['pork','snacks']
 author: Elizabeth Windsor
 ---

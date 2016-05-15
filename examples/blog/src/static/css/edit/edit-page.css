@@ -280,15 +280,3 @@ aside ul {
 aside input[type="text"] {
     height: 2rem;
 }
-
-#message-sent {
-    border: 1px solid #aaaaaa;
-    background: #fff;
-    color: #fd685c;
-    border-radius: 4px;
-    text-align: center;
-}
-
-#message-sent h5 {
-    color: #fd685c;
-}

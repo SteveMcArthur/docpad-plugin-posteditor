@@ -26,7 +26,7 @@ layout: admin
                 <li><a href="#"><i class="icon-calendar"></i>Published on: <span>15 May 2015</span></a></li>
             </ul>
         </div>
-        <div class="panel">
+        <div id="img-panel" class="panel ">
             <h2>Feature Image</h2>
             <img id="feature-img" src="">
 
@@ -36,7 +36,7 @@ layout: admin
         <div class="panel">
             <h2>Tags</h2>
             <input type="text" id="new-tag" name="new-tag" width="80%">
-            <input type="button" value="Add">
+            <input type="button" id="add-tag" value="Add">
             <ul id="tags">
 
             </ul>
@@ -52,4 +52,10 @@ layout: admin
     <div>
         Post Updated Successfully
     </div>
+</div>
+<div id="image-picker" title="Choose Image">
+    <ul class="small-block-grid-3">
+        <li><img src="/img/default-image.jpg"></li>
+    </ul>
+ 
 </div>

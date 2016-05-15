@@ -119,7 +119,8 @@ docpadConfig =
         latestPosts: ->
             @getCollection('posts').findAll({},{},{limit:4})
             
-            
+
+      
     #-------------------------------------------------------------------------------------#
     #Membership related code used by the findOrCreate method passed to the authentication plugin
     users: [ {
@@ -191,7 +192,6 @@ docpadConfig =
             # Extract the server from the options
             {server} = opts
             docpad = @docpad
-                        
 
             # As we are now running in an event,
             # ensure we are using the latest copy of the docpad configuraiton
@@ -207,11 +207,23 @@ docpadConfig =
                 else
                     next()
                     
-             server.get '/admin/edit/:docId', (req,res,next) ->
+            server.get '/admin/images', (req,res,next) ->
+                try
+                    coll = docpad.getDatabase().findAllLive({relativeOutDirPath:'images'}).toJSON()
+                    output = []
+                    coll.forEach (item) ->
+                        output.push(item.url)
+                    
+                    res.json(output)
+                catch err
+                    console.log(err)
+                    res.status(500).json({success:false,msg:"unable to find images"})
+                    
+            server.get '/admin/edit/:docId', (req,res,next) ->
                 try
                     docId = parseInt(req.params.docId)
                     editPage = docpad.getCollection('documents').findOne({slug: 'admin-edit'})
-                    
+
                     if editPage
                         opts =
                             document:editPage

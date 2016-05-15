@@ -49,7 +49,7 @@ mergeMetaData = (plugin, opts) ->
 #build the actual text content of the document, including the metadata section
 buildContent = (opts,plugin) ->
    
-    {docId,content,title,tags,user,layout,img,slug,customFields} = opts
+    {docId,content,title,tags,user,layout,img,slug, author,customFields} = opts
     config = plugin.getConfig()
     #/[A-Za-z0-9_.\-~\?!]/
     titleReg = config.titleReg
@@ -81,9 +81,10 @@ buildContent = (opts,plugin) ->
         docMeta.img = img
     if slug
         docMeta.slug = slug
-
     if tags
         docMeta.tags = tags
+    if author
+        docMeta.author = author
 
     #make sure arbritrary fields cannot
     #be added to a documents metadata

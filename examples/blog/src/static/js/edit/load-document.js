@@ -54,11 +54,11 @@ $(document).ready(function () {
             .done(function (data) {
                 $('#post-title').val(data.title);
                 $('#slug').text(data.slug);
-                $('#feature-img').attr('src',data.img);
+                $('#feature-img').attr('src', data.img);
                 $('#docId').text(data.docId);
                 var tags = $('#tags');
-                for(var i=0;i<data.tags.length;i++){
-                    tags.append('<li><a class="icon-cancel-circle"></a>'+data.tags[i]+"</li>");
+                for (var i = 0; i < data.tags.length; i++) {
+                    tags.append('<li><a class="icon-cancel-circle"></a>' + data.tags[i] + "</li>");
                 }
 
                 CKEDITOR.instances.editor1.setData(data.content, {
@@ -82,7 +82,7 @@ $(document).ready(function () {
         inputs.each(function () {
             tags.push($(this).text());
         });
-        
+
         //check we actually have something written
         //and that we have a title
         if (txt.length < 10) {
@@ -106,7 +106,7 @@ $(document).ready(function () {
                 tags: tags,
                 docId: docId
             };
-       
+
             $.post('/save', obj)
                 .done(function () {
                     $('#edit-msg').show();
@@ -118,7 +118,7 @@ $(document).ready(function () {
                     $('#edit-loader').fadeOut(500);
                     $('#edit-msg').fadeOut(500);
                     alert(msg);
-            });
+                });
         }
 
     }
@@ -142,23 +142,48 @@ $(document).ready(function () {
         postData();
     });
 
-    function testData() {
-        $('#post-title').val("This is some test data");
-        CKEDITOR.instances.editor1.setData("<p>To be or not to be that is the question</p>");
-    }
-
-    $('#test-btn').click(function () {
-        testData();
+    $('#add-tag').click(function () {
+        var tag = $('#new-tag').val();
+        if (tag) {
+            $('#tags').append('<li><a class="icon-cancel-circle"></a>' + tag + "</li>");
+        }
     });
+
+    function loadImages() {
+        var list = $('#image-picker ul');
+        list.html("");
+        $.get('/admin/images')
+            .done(function (data) {
+                for (var i = 0; i < data.length; i++) {
+                    var url = data[i];
+                    list.append('<li><img src="' + url + '"></li>');
+                }
+            })
+            .fail(function (xhr, err, msg) {
+                alert(msg);
+            });
+    }
     
-    $('#feature-img').on("load",function(){
+    loadImages();
+
+    $("#image-picker").dialog({
+        autoOpen: false,
+        width: '60%'
+    });
+    $('#img-panel').click(function () {
+        $("#image-picker").dialog('open');
+    });
+
+
+
+    $('#feature-img').on("load", function () {
         var h = this.naturalHeight;
         var w = this.naturalWidth;
-        $('#imgdim').text("Dimensions: "+w+" x "+h);
+        $('#imgdim').text("Dimensions: " + w + " x " + h);
 
     });
-    
-    $('.new-btn').css('display','inline');
+
+    $('.new-btn').css('display', 'inline');
 
     var items = window.location.pathname.split('/');
     var docIdStr = items[items.length - 1];

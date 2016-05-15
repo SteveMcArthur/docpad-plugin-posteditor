@@ -22,7 +22,7 @@ layout: 'base'
         <div class="row centered-text">
             <hr class="margin-bottom-40px">
             <%posts = @getLatestPosts()%>
-            <%defImg = '/img/default-image.jpg'%>
+            <%defImg = '/images/default-image.jpg'%>
             <div class="large-4 columns">
                 <a class="bloglink" href="<%-posts[0].url%>">
                 <figure>

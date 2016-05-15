@@ -7,7 +7,7 @@
 
 Docpad plugin that allows the saving and updating of posts/articles. It provides the basis for an admin/CMS interface. 
 
-![Screen shot](https://raw.githubusercontent.com/SteveMcArthur/docpad-plugin-posteditor/screenshot.jpg)
+![Screen shot](https://raw.githubusercontent.com/SteveMcArthur/docpad-plugin-posteditor/master/screenshot.jpg)
 
 It manages the saving and updating of posts and loading of existing posts for an editor interface. It does not provide the editor interface. It is editor interface agnostic. It assumes you have provided an editor on the client side with client code to request existing articles via the plugin's configured load url and save articles via the configured save url. The editor can be a simple textarea element or a full-blown text editor like [CKeditor](http://ckeditor.com/). The choice is yours.
 

@@ -1,0 +1,59 @@
+--- 
+layout: admin 
+title: Dashboard 
+---
+<div class="row">
+    <div class="large-12 columns">
+        <div class="panel">
+        <h2>Welcome to <span style="font-style:italic;"><%-@site.title%></span></h2>
+        <p>We've assembled some links to get you started (these actually don't do anything):</p>
+            <div class="row">
+                <div class="large-4 columns">
+                    <h3>Get Started</h3>
+                    <a href="#" class="button">Customise Your Site</a>
+                </div>
+                <div class="large-4 columns">
+                    <h3>Next Steps</h3>
+                    <ul>
+                        <li><a href="#"><i class="icon-pencil"></i>Write your first blog post</a></li>
+                        <li><a href="#"><i class="icon-plus"></i>Add an About page</a></li>
+                        <li><a href="#"><i class="icon-display"></i>View your site</a></li>
+                    
+                    </ul>
+                </div>
+                <div class="large-4 columns">
+                    <h3>More Actions</h3>
+                    <ul>
+                        <li><a href="#"><i class="icon-cogs"></i>Manage widgets or menus</a></li>
+                        <li><a href="#"><i class="icon-bubbles"></i>Turn comments on or off</a></li>
+                        <li><a href="#"><i class="icon-earth"></i>Learn more about getting started</a></li>
+                    
+                    </ul>
+                </div>
+            
+            </div>
+        
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="large-6 columns">
+        <div class="panel">
+            <h2>Latest Posts</h2>
+            <%posts = @getLatestPosts()%>
+            <ul>
+            <%for post in posts:%>
+                <li><a href="#"><i class="icon-pushpin"></i><%-post.title%></a></li>
+            <%end%>
+            </ul>
+        
+        </div>
+    </div>
+    <div class="large-6 columns">
+        <div class="panel">
+            <h2>Docpad News</h2>
+            <p>Pancetta pastrami salami brisket tongue, pork chop flank tri-tip pork chuck swine. Venison drumstick pig, sausage alcatra prosciutto strip steak. Landjaeger brisket tail, salami sausage pork belly fatback turducken spare ribs shankle strip steak sirloin chuck meatball doner. Meatball pork brisket, bacon cow salami bresaola biltong beef ribs tongue jowl tenderloin frankfurter.</p>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,40 @@
+body {
+    background-color: #f1f2f6;
+    color: #333;
+}
+
+.top-bar {
+    background: #074e68;
+    background: rgba(7, 78, 104, 0.8);
+}
+
+button:hover,
+button:focus,
+.button:hover,
+.button:focus {
+    background-color: #074e68;
+}
+
+button,
+.button {
+    background-color: #0c86b3;
+}
+
+.page-footer-bottom {
+  background: #333;
+}
+
+.page-footer-bottom .design-border {
+  border-bottom: 1px solid #484848;
+}
+
+.page-footer-bottom a.site-logo {
+   color: #858585;
+}
+
+.page-footer-bottom ul.site-links li a {
+  color: #666666;
+}
+
+.page-footer-bottom ul.site-links li a:hover {
+  color: #777777; }

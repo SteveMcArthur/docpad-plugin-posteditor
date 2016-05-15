@@ -1,0 +1,46 @@
+{
+  "name": "blog",
+  "version": "0.0.1",
+  "private": true,
+  "description": "blog website",
+  "homepage": "https://github.com/SteveMcArthur/{name}",
+  "keywords": [
+    "docpad-skeleton",
+    "docpad",
+    "website",
+    "skeleton",
+    "blog template",
+    "blog"
+  ],
+  "author": "Steve McArthur <contact@stevemcarthur.co.uk> (http://www.stevemcarthur.co.uk)",
+  "maintainers": [
+    "Steve McArthur <contact@stevemcarthur.co.uk> (http://www.stevemcarthur.co.uk)"
+  ],
+  "contributors": [
+    "Steve McArthur <contact@stevemcarthur.co.uk> (http://www.stevemcarthur.co.uk)"
+  ],
+  "bugs": {
+    "url": "https://github.com/SteveMcArthur/{name}/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/SteveMcArthur/{name}"
+  },
+  "engines": {
+    "node": "^0.12.2",
+    "npm": "^2.76"
+  },
+  "dependencies": {
+    "docpad": "^6.78.0",
+    "docpad-plugin-authentication": "^2.4.2",
+    "docpad-plugin-cleanurls": "^2.8.1",
+    "docpad-plugin-eco": "^2.1.0",
+    "docpad-plugin-marked": "^2.3.0",
+    "docpad-plugin-partials": "^2.9.2",
+    "truncate-html": "0.0.6"
+  },
+  "devDependencies": {
+    "docpad-plugin-livereload": "^2.6.1"
+  },
+  "main": "node_modules/docpad/bin/docpad-server"
+}

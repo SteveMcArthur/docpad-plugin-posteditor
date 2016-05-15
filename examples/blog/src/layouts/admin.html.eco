@@ -1,0 +1,41 @@
+--- 
+layout: base 
+---
+<link rel="stylesheet" href="/css/admin.css">
+
+<section class="admin" id="main-content">
+    <!-- Sidebar -->
+    <aside class="small-3 medium-2 columns">
+        <ul class="side-nav">
+            <li class="dashboard"><a href="/admin"><i class="icon-meter"></i>Dashboard</a></li>
+            <li class="posts"><a href="/admin/posts"><i class="icon-pushpin"></i>Posts</a></li>
+            <li class="plugins"><a href="/admin/plugins"><i class="icon-power-cord"></i>Plugins</a></li>
+            <li class="settings"><a href="/admin/settings"><i class="icon-cog"></i>Settings</a></li>
+        </ul>
+    </aside>
+    <!-- End Sidebar -->
+    <div class="small-9 medium-10 columns" role="content">
+        <article>
+            <div class="title row">
+                <div class="large-9 columns">
+                    <h1><%-@document.title%></h1><a href="/admin/new" class="button small new-btn">Add New</a>
+                </div>
+                <div class="large-3 columns">
+                </div>
+            </div>
+            <div class="row">
+                <div class="large-12 columns">
+                    <%- @content %>
+                </div>
+            </div>
+        </article>
+    </div>
+</section>
+<script>
+    var t = document.getElementsByTagName('title')[0].innerHTML;
+    t = t.split("|")[0].trim().toLowerCase();
+    var el = document.getElementsByClassName(t)[0];
+    if (el) {
+        el.className += " active";
+    }
+</script>

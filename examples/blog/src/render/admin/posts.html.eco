@@ -1,0 +1,31 @@
+---
+layout: admin
+title: Posts
+scripts: "<script>$('.new-btn').css('display','inline');</script>"
+---
+
+<table width="100%">
+  <thead>
+    <tr>
+      <th width="40%">Title</th>
+      <th>Author</th>
+      <th>Tags</th>
+      <th>Date</th>
+    </tr>
+  </thead>
+  <tbody>
+    <%posts = @getPosts()%>
+    <%for post in posts:%>
+    <tr data-slug="<%-post.slug%>" data-id="<%-post.docId%>">
+      <td><a href="/admin/edit/<%-post.docId%>"><i class="icon-pencil"></i><%-post.title%></a></td>
+      <td><%-post.author%></td>
+      <td><%-post.tags%></td>
+      <td><%-post.ctime.toDateString()%></td>
+    </tr>
+    <%end%>
+  </tbody>
+</table>
+<script>
+
+
+</script>

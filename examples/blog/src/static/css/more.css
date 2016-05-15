@@ -1,0 +1,107 @@
+.right {
+    float:right;   
+}
+nav ul.reset {
+    float: right;
+}
+
+nav form input[type="text"] {
+    margin-left: 50px;
+    width: 100%;
+    max-width: 100%;
+    background-color: #2B2B2B;
+    background-color: rgba(43, 43, 43, 0.4);
+}
+
+#intro-wrap {
+    background-color: #a3a3a3;
+}
+
+#intro-wrap .caption .button {
+    background-color: rgba(43, 43, 43, 0.6);
+}
+
+.sidepanel {
+    border: 1px solid #ddd;
+    padding: 0.5em;
+}
+
+table.infobox {
+    width: 100%;
+    font-size: 11px;
+    word-break: keep-all;
+}
+
+.meta-post span,
+.meta-post time {
+    font-style: italic;
+}
+
+#main {
+    /*    background: url("/images/background1.jpg") 1 no-repeat; */
+    /*    background: #BA9A78;*/
+}
+
+@keyframes animatedBackground {
+    from {
+        background-size: 100px;
+    }
+    to {
+        background-size: 577px;
+    }
+}
+
+.intro-item .caption {
+    background: url("/images/logo.png") no-repeat 50% 0%;
+    padding-top: 120px;
+    animation: animatedBackground 5s linear;
+}
+
+a.news {
+    text-decoration: none;
+}
+
+#main {
+    background: url('/images/road-cars-bw.jpg');
+    background-size: auto 100%;
+}
+
+.blog-section.masonry-style article.three .blog-excerpt {
+    border-radius: 1em;
+    opacity: 0.8;
+}
+
+.news p {
+    font-size: 0.722em;
+}
+
+.contact-section input,
+.contact-section textarea,
+.comment-form input,
+.comment-form textarea {
+    background-color: rgba(255, 255, 255, 0.6);
+}
+
+.hide {
+    display: none;
+}
+.button.red, input.button.red {
+    color:#fff;   
+}
+.search-no-results {
+    text-align: left;
+    width: 44%;
+    margin: auto;
+}
+.search-no-results input {
+    max-width: none;   
+}
+.search-no-results iframe {
+    overflow: hidden;
+    width: 100%;
+    height: 100px;
+}
+.row-content.buffer, .row-content.buffer-bottom {
+  padding-bottom: 0;
+}
+

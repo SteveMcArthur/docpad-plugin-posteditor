@@ -1,0 +1,49 @@
+--- 
+layout: 'default'
+---
+
+<div class="site-section site-promo">
+    <div class="container">
+        <div class="column col8">
+            <h1>Edit Post</h1>
+            <a id="generateBtn" class="button">Generate Text</a>
+            <input type="text" name="post-title" id="post-title">
+            <div  style="height:26px;width:100%;">Document Id:<span id="doc-id"></span></div>
+            <textarea id="editor">
+
+
+            </textarea>
+            <div style="height:35px;">
+                <a id="saveBtn" class="button">Save Post</a>
+            </div>
+        </div>
+        <div class="column col4">
+            <h2>Latest Posts</h2>
+            <div class="content">
+                <ul>
+                    <% for post in @getCollection('posts').sortArray(date: -1): %>
+                        <li>
+                            <h3>
+                                <a href="<%=post.url %>"><%-post.title or post.name %></a>
+                                <a data-id="<%=post.docId%>" class="loadBtn" href="#">Load</a>
+                            </h3>
+
+                        </li>
+                        <% end %>
+                </ul>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="edit-loader">
+    <div style="width:200px;margin:auto;">
+        Loading...
+    </div>
+</div>
+<div id="edit-message">
+    <div style="width:200px;margin:auto;">
+        Post Saved...
+    </div>
+</div>

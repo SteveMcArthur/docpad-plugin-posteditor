@@ -1,0 +1,261 @@
+---
+layout: 'base'
+---
+    <!-- Splash -->
+    <div class="splash-container">
+        <div class="overlay">
+        <div class="splash">
+            <h1 class="splash-head">Big Bold Text</h1>
+            <p class="splash-subhead">
+                Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+            </p>
+            <p>
+                <a href="#" class="button">Get Started</a>
+            </p>
+        </div>
+        </div>
+    </div>
+    <!-- End Splash -->
+
+    <div class="content-wrapper">
+
+        <div class="row centered-text">
+            <hr class="margin-bottom-40px">
+            <%posts = @getLatestPosts()%>
+            <%defImg = '/img/default-image.jpg'%>
+            <div class="large-4 columns">
+                <a class="bloglink" href="<%-posts[0].url%>">
+                <figure>
+                    <img src="<%-posts[0].img or defImg%>" />
+                </figure>
+                <h4><%-posts[0].title%></h4>
+                <p><%-@truncateText(posts[0].contentRenderedWithoutLayouts)%></p>
+                </a>
+            </div>
+
+            <div class="large-4 columns">
+                <a class="bloglink" href="<%-posts[1].url%>">
+                <figure>
+                    <img src="<%-posts[1].img or defImg%>" />
+                </figure>
+                <h4><%-posts[1].title%></h4>
+                <p><%-@truncateText(posts[1].contentRenderedWithoutLayouts)%></p>
+                </a>
+            </div>
+
+            <div class="large-4 columns">
+                <a class="bloglink" href="<%-posts[2].url%>">
+                <figure>
+                    <img src="<%-posts[2].img or defImg%>" />
+                </figure>
+                <h4><%-posts[2].title%></h4>
+                <p><%-@truncateText(posts[2].contentRenderedWithoutLayouts)%></p>
+                </a>
+            </div>
+        </div>
+
+
+        <div id="newsletter">
+            <div class="row">
+
+                <div class="medium-8 columns">
+                    <h5>Stay on top of what&rsquo;s happening in
+                        <a href="#">responsive design</a>.</h5>
+                    <p>Sign up to receive monthly
+                        <a href="#">Responsive Reading</a>highlights.
+                        <a href="#">Read Last Month's Edition »</a>
+                    </p>
+                </div>
+
+
+                <div class="medium-4 columns">
+                    <form method="post" action="/">
+                        <div class="row collapse margintop-20px">
+                            <div class="small-8 medium-8 columns">
+                                <input type="text" name="email" placeholder="signup@example.com">
+                            </div>
+                            <div class="small-4 medium-4 columns">
+                                <input type="submit" href="#" class="postfix small button expand" value="Sign Up">
+                            </div>
+                        </div>
+                    </form>
+                </div>
+
+
+            </div>
+        </div>
+
+
+        <div class="contact-band">
+            <div class="row text-center">
+                <div class="large-12 columns">
+                    <h3>Dolore magna aliqua. Uis aute irure.</h3>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="medium-5 columns pad">
+                    <form>
+                        <div class="row collapse">
+                            <div class="large-12 columns">
+                                <label>Your Name</label>
+                                <input type="text" id="yourName" placeholder="Jane Smith">
+                            </div>
+                        </div>
+                        <div class="row collapse">
+                            <div class="large-12 columns">
+                                <label>Your Email</label>
+                                <input type="text" id="yourEmail" placeholder="jane@smithco.com">
+                            </div>
+                        </div>
+                        <label>Message</label>
+                        <textarea rows="4"></textarea>
+                        <button type="submit" class="postfix button small">Submit</button>
+                    </form>
+
+                </div>
+
+                <div class="medium-7 columns pad">
+                    <h4>Contact Us</h4>
+                    <p>
+                        Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+                    </p>
+
+                    <h4>More Information</h4>
+                    <p>
+                        Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                    </p>
+                </div>
+            </div>
+
+        </div>
+
+
+        <div class="page-footer-top">
+            <div class="row property">
+                <div class="medium-4 columns">
+                    <div class="property-info">
+                        <h3>About Us</h3>
+                        <p>
+                        Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="medium-8 columns">
+                    <div class="row collapse">
+                        <div class="medium-4 columns">
+                            <div class="learn-links">
+                                <h4 class="hide-for-small">Our Stuff?</h4>
+                                <ul>
+                                    <li>
+                                        <a href="#">Something We Do</a>
+                                    </li>
+                                    <li>
+                                        <a href="#">Something Else</a>
+                                    </li>
+                                    <li>
+                                        <a href="#">And Another Thing</a>
+                                    </li>
+                                    <li>
+                                        <a href="learn/training.html">This As Well</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="medium-4 columns">
+                            <div class="support-links">
+                                <h4 class="hide-for-small">Talk to us</h4>
+                                <p>
+                                    Tweet us at
+                                    <br>
+                                    <a href="https://twitter.com/">@ourtwittersite</a>
+                                </p>
+                                <p>
+                                    Email us at
+                                    <br>
+                                    <a href="mailto:email@site.com">email@site.com</a>
+                                    <br>or check our
+                                    <a href="#">support page</a>
+                                </p>
+
+
+
+                            </div>
+                        </div>
+                        <div class="medium-4 columns">
+                            <div class="connect-links">
+                                <h4 class="hide-for-small">Stay in touch</h4>
+                                <p>Keep up with the latest on Foundation. Find us on
+                                    <a href="https://github.com/site/foundation">Github</a>.</p>
+                                <a href="http://site.com/news" class="small button">Stay Connected</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row global">
+                <div class="medium-3 small-6 columns">
+                    <a href="#" class="footer-link-block services">
+                        <span class="title">Studios</span>
+                        <span>Helping more than 200 startups succeed since 1998.</span>
+                    </a>
+                </div>
+                <div class="medium-3 small-6 columns">
+                    <a href="#" class="footer-link-block foundation">
+                        <span class="title">Foundation</span>
+                        <span>The most advanced front-end framework in the world.</span>
+                    </a>
+                </div>
+                <div class="medium-3 small-6 columns">
+                    <a href="#" class="footer-link-block apps">
+                        <span class="title">Design Apps</span>
+                        <span>Prototype, iterate and collect feedback on your products.</span>
+                    </a>
+                </div>
+                <div class="medium-3 small-6 columns">
+                    <a href="#" class="footer-link-block expo">
+                        <span class="title">University</span>
+                        <span>Ideas, thoughts and design resources shared with you.</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="page-footer-bottom">
+            <div class="row">
+                <div class="medium-4 medium-4 push-8 columns">
+
+                    <ul class="home-social">
+                        <li>
+                            <a href="http://www.twitter.com/" class="twitter"></a>
+                        </li>
+                        <li>
+                            <a href="http://www.facebook.com/" class="facebook"></a>
+                        </li>
+                        <li>
+                            <a href="/contact" class="mail"></a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="medium-8 medium-8 pull-4 columns">
+                    <ul class="site-links">
+                        <li class="name">
+                            <a href="/">Steve McArthur</a>
+                        </li>
+                        <li>
+                            <a href="/">Home</a>
+                        </li>
+                        <li>
+                            <a href="/blog">Blog</a>
+                        </li>
+                         <li>
+                            <a href="/news">News & Events</a>
+                        </li>
+                    </ul>
+                    <p class="copyright">© 2013 Steve McArthur. All rights reserved.</p>
+                </div>
+            </div>
+        </div>
+    </div>

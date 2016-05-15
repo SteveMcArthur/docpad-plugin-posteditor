@@ -1,0 +1,103 @@
+
+.admin, .admin p, .admin a {
+    font-size: 14px;
+}
+.admin h1 {
+    display: inline;
+    font-size: 2.2rem;
+}
+.new-btn {
+    float: right;
+    margin: 0;
+    margin-top: 10px;
+    display: none;
+
+}
+.button.small {
+    padding-top: 0.575rem;
+    padding-bottom: 0.575rem; 
+}
+.admin h2, .admin h3 {
+    font-size: 18px;
+}
+.admin#main-content {
+    width:100%;
+    height: 100%;
+    margin-top: 45px;
+}
+
+.admin aside {
+    height: 100%;
+    background: #074e68;
+    background: rgba(7, 78, 104, 0.8);
+    color: white;
+    padding: 0;
+}
+.admin .side-nav ul {
+    padding: 0;
+}
+.admin > div {
+    height: 100%;
+}
+.admin .panel ul {
+    list-style: none;
+    margin-left: 0;
+}
+.admin .panel ul i {
+    color: #333;
+}
+.admin .side-nav li {
+    font-size: 1rem;
+    padding: 0.5rem 1rem;
+}
+.admin .side-nav li:hover {
+    background: #03374a; 
+}
+.admin .side-nav li a {
+    color: white;
+}
+.side-nav li.active {
+    background:  #0e9ace;
+}
+.side-nav li.active > a:first-child:not(.button) {
+    color: white;
+}
+i {
+    margin-right: 10px;
+}
+.panel {
+    background-color: white;
+    background-color: rgba(255,255,255,0.93);
+    min-height: 200px;
+}
+.admin table i {
+    margin-right: 10px;
+}
+.admin table a {
+    color: inherit;
+}
+.admin table a:hover {
+    color: #0078a0;
+    text-decoration: underline;
+}
+.wrap {
+    margin-bottom: 1rem;
+}
+#imgdim {
+    margin-top: 0.5em;
+}
+#published li span {
+    font-weight: bold;
+}
+
+.admin .title {
+    padding-top: 1em;
+    padding-bottom: 1em;
+}
+#tags a {
+    margin-right: 5px;
+    color: #333;
+}
+#tags a:hover {
+    color: #8b0000;
+}

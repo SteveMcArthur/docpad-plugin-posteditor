@@ -1,8 +1,8 @@
 ---
 docId: 1262200575288
-title: What is Markdown!
+title: What is Markdown?
 layout: post
-editdate: Sat May 14 2016 16:58:39 GMT+0100 (GMT Summer Time)
+editdate: Sun May 15 2016 06:21:09 GMT+0100 (GMT Summer Time)
 edit_user: 
 edit_user_id: undefined
 img: /img/markdown.jpg
@@ -17,8 +17,8 @@ see [Wikipedia](http://en.wikipedia.org/wiki/Markdown)
 
 ## usage
 
-1. Write markdown text in this textarea.
-1. Click 'HTML Preview' button.
+	1. Write markdown text in this textarea.
+	1. Click 'HTML Preview' button.
 ***
 
 ## markdown quick reference
@@ -28,7 +28,7 @@ see [Wikipedia](http://en.wikipedia.org/wiki/Markdown)
 _emphasis_
 
 **strong**
-- list
+	- list
 
 > block quote
 

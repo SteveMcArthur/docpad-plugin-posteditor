@@ -19,9 +19,11 @@ docpadConfig =
             sendRenderedContent: false
 
 require('docpad').require('testers')
-    .test(getTesterConfig('properties-exist'),docpadConfig)
-    .test(getTesterConfig('createPaths'),docpadConfig)
-    .test(getTesterConfig('loaddocument'),docpadConfig)
-    .test(getTesterConfig('savedocument'),docpadConfig)
-    .test(getTesterConfig('request'),docpadConfig)
+    #.test(getTesterConfig('generate'),docpadConfig)
+    #.test(getTesterConfig('properties-exist'),docpadConfig)
+    #.test(getTesterConfig('createPaths'),docpadConfig)
+    #.test(getTesterConfig('loaddocument'),docpadConfig)
+    #.test(getTesterConfig('savedocument'),docpadConfig)
+    #.test(getTesterConfig('request'),docpadConfig)
     #.test(getTesterConfig('regeneration'),docpadConfig)
+    .test(getTesterConfig('sanity-check'),docpadConfig)

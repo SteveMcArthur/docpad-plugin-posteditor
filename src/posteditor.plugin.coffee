@@ -48,7 +48,7 @@ module.exports = (BasePlugin) ->
             sanitize: require('bleach').sanitize
             
             #remember to include the space character but not the tab (\t) or newline (\n)
-            titleReg: /[^A-Za-z0-9_.\-~\?! ]/g
+            titleReg: /[^A-Za-z0-9_.\-~\?!:"'$@# ]/g
             
         validPaths: []
         

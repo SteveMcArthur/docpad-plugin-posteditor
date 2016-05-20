@@ -2,6 +2,17 @@ fs = require('safefs')
 fileCopy = require('fs-extra').copy
 path = require('path')
 
+slugify = (input) ->
+    input = input.trim().toLowerCase()
+    input = input.replace(/[^a-zA-Z0-9]/g,'-').replace(/^-/,'').replace(/-+/g,'-').trim()
+    input = input.replace(/-$/,'').trim()
+    return input
+
+getPath = (plugin,title) ->
+    defaultSavePath = plugin.getConfig().defaultSavePath
+    name = slugify(title)
+    return path.join(defaultSavePath,name+'.html.md')
+
 #write new document (after version has been moved to version directory)
 writeDocument = (file,fileContent,docObject,plugin,callback) ->
     fs.writeFile file,fileContent, (err) ->
@@ -51,16 +62,16 @@ buildContent = (opts,plugin) ->
    
     {docId,content,title,tags,user,layout,img,slug, author,customFields} = opts
     config = plugin.getConfig()
-    #/[A-Za-z0-9_.\-~\?!]/
+    #/[^A-Za-z0-9_.\-~\?!:"'$@# ]/
     titleReg = config.titleReg
     sanitize = config.sanitize
     content = sanitize(content)
     title = title.replace(titleReg,'').trim()
+
     #if we have a slug use that, but make sure it only contains valid characters
     #Otherwise let docpad calculate the slug
     if slug
-        slug = slug.replace(/[^a-zA-Z0-9]/g,'-').replace(/^-/,'')
-        slug = slug.replace(/-$/,'').replace(/-+/,'-').toLowerCase()
+        slug = slugify(slug)
 
     if tags
         if Array.isArray(tags)
@@ -104,11 +115,6 @@ buildContent = (opts,plugin) ->
 
     return {fileContent,docMeta}
 
-getPath = (plugin,title) ->
-    defaultSavePath = plugin.getConfig().defaultSavePath
-    fname = title.replace(/[^a-zA-Z0-9]/g,'-').replace(/^-/,'')
-    fname = fname.replace(/-$/,'').replace(/-+/,'-').toLowerCase()
-    return path.join(defaultSavePath,fname+'.html.md')
 
 checkInteger = (num) ->
     if num is undefined or num is null

@@ -50,8 +50,10 @@ module.exports = (testers) ->
             
 
             
-            longPost = dummyObjs.find (item) ->
-                return item.slug == 'long-text'
+            longPost = null
+            dummyObjs.forEach (item) ->
+                if item.slug == 'long-text'
+                    longPost = item
                 
 
 

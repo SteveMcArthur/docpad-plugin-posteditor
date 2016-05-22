@@ -6,15 +6,18 @@ module.exports = (testers) ->
     fs = require('safefs')
     util = require('util')
     path = require('path')
-    beforeTest = require('./beforeTest')
+    cleanTestPaths = require('./cleanTestPaths')
     testDocs = require('./testDocs')
 
+    dataPath = null
+    versionPath = null
+    testSrcPosts = null
     # Define My Tester
     class PropertiesExistTester extends testers.ServerTester
         
         testCreate: ->
             tester = @
-            beforeTest(tester)
+            {dataPath,versionPath,testSrcPosts} = cleanTestPaths(tester)
             
             super
         # Test Generate
@@ -69,36 +72,54 @@ module.exports = (testers) ->
                 plugin = docpad.getPlugin('posteditor')
                 config = plugin.getConfig()
                 
-                doc = getDoc()
+                testOutPosts = path.join(tester.config.testPath, 'out', 'posts')
                 
-                test 'edit existing doc', () ->
+                doc = getDoc()
+                content = ""
+                test 'edit existing doc', (done) ->
                     opts = makeOptions(doc)
                     opts.content = 'xxx'+opts.content
                     content = opts.content.substr(0,10)
                     plugin.saveDocument plugin,opts, (result) ->
                         expect(result.success).to.be.true
-
-                        test 'generate edit update', () ->
-                            plugin.generateUpdate 1262200515233,doc.fullPath, () ->
-                                newdoc = getDoc()
-                                newcontent = newdoc.content.substr(0,10)
-                                expect(newcontent).to.equal(content)
-                test 'create new doc', () ->
+                        done()
+                        
+                test 'generate edit update', (done) ->
+                    plugin.generateUpdate 1262200515233,doc.fullPath, () ->
+                        newdoc = getDoc()
+                        newcontent = newdoc.content.substr(0,10)
+                        expect(newcontent).to.equal(content)
+                        done()
+                        
+                fullPath = ""
+                test 'create new doc', (done) ->
                     content = testDocs[0].content
                     title = testDocs[0].title
                     filename = testDocs[0].title.replace(config.titleReg,'').trim().toLowerCase()
                     filename = filename.replace(/[ ]/g,'-')+".html.md"
-                    fullPath = path.resolve(__dirname,'..','..','..','test','src','documents','posts',filename)
-                    plugin.saveDocument plugin,testDocs[0], (result) ->
+                    fullPath = path.join(testSrcPosts,filename)
+                    newDoc =
+                        title: title
+                        content: content
+                        user:  testDocs[0].user
+                        
+                    plugin.saveDocument plugin,newDoc, (result) ->
                         expect(result.success).to.be.true
-                        test 'file exists before regeneration', () ->
-                            isThere = fileExists(fullPath)
-                            expect(isThere).to.be.true
-                            
-                        test 'generate new update', () ->
-                            plugin.generateUpdate null,doc.fullPath, () ->
-                                isThere = fileExists(fullPath)
-                                expect(isThere).to.be.true
-                                test 'document loaded in docpad collection', () ->
-                                    newdoc = getDocByTitle(title)
-                                    expect(newdoc).to.have.property('title')
+                        done()
+                        
+                test 'file exists before regeneration', (done) ->
+                    isThere = fileExists(fullPath)
+                    expect(isThere).to.be.true
+                    done()
+
+                test 'generate new update', (done) ->
+                    plugin.generateUpdate null,doc.fullPath, () ->
+                        isThere = fileExists(fullPath)
+                        expect(isThere).to.be.true
+                        done()
+                        
+                test 'document loaded in docpad collection', (done) ->
+                    title = testDocs[0].title
+                    newdoc = getDocByTitle(title)
+                    expect(newdoc).to.have.property('title')
+                    done()

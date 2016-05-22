@@ -1,9 +1,9 @@
 fs = require('safefs')
 util = require('util')
-pathUtil = require('path')
+path = require('path')
 
 createDoc = (tester) ->
-    outfile = pathUtil.join(tester.config.testPath, 'src', 'documents','posts','bacon-prosciutto.html.md')
+    outfile = path.join(tester.config.testPath, 'src', 'documents','posts','bacon-prosciutto.html.md')
 
     meta = "---\n"+
         "docId: 1262200515233\n"+

@@ -6,8 +6,8 @@ module.exports = (testers) ->
     fs = require('safefs')
     util = require('util')
     pathUtil = require('path')
-    beforeTest = require('./beforeTest')
-    createDoc = require('./createDoc')
+    cleanTestPaths = require('./cleanTestPaths')
+    
     
     dataPath = null
     versionPath = null
@@ -20,7 +20,7 @@ module.exports = (testers) ->
 
         testCreate: ->
             tester = @
-            {dataPath,versionPath,testSrcPosts} = beforeTest(tester)
+            {dataPath,versionPath,testSrcPosts,testOutPaths} = cleanTestPaths(tester)
 
             
             super
@@ -45,9 +45,10 @@ module.exports = (testers) ->
                 # Prepare
                 plugin = tester.docpad.getPlugin('posteditor')
                 config = plugin.getConfig()
-                test 'data path exists', () ->
+                test 'data path exists', (done) ->
                     exists = fileExists(dataPath)
                     expect(exists).to.be.true
+                    done()
                 test 'version path exists', (done) ->
                     exists = fileExists(versionPath)
                     expect(exists).to.be.true

@@ -6,7 +6,7 @@ module.exports = (testers) ->
     fs = require('safefs')
     util = require('util')
     pathUtil = require('path')
-    beforeTest = require('./beforeTest')
+    cleanTestPaths = require('./cleanTestPaths')
     
     
     dataPath = null
@@ -20,7 +20,7 @@ module.exports = (testers) ->
 
         testCreate: ->
             tester = @
-            {dataPath,versionPath,testSrcPosts} = beforeTest(tester)
+            {dataPath,versionPath,testSrcPosts} = cleanTestPaths(tester)
             
             super
 
@@ -45,18 +45,23 @@ module.exports = (testers) ->
                 
                 plugin = tester.docpad.getPlugin('posteditor')
                 config = plugin.getConfig()
-                                                            
-                test 'load document 1262200515233', () ->
+                 
+                obj = null
+                test 'load document 1262200515233', (done) ->
                     obj = plugin.loadDocument(1262200515233,plugin)
                     expect(obj.success).to.be.true
-                    test 'document object has docId property',() ->
-                        expect(obj.docId).to.equal(1262200515233)
-                    test 'document object has title property',() ->
-                        expect(obj.title).to.equal('Bacon Prosciutto')
-                    test 'document object has content property',() ->
-                        expect(obj.content).to.exist
-                    test 'document object has slug property',(done) ->
-                        console.log(obj.slug)
-                        expect(obj.slug).to.equal('posts-bacon-prosciutto')
-                        done()
+                    done()
+                test 'document object has docId property',(done) ->
+                    expect(obj.docId).to.equal(1262200515233)
+                    done()
+                test 'document object has title property',(done) ->
+                    expect(obj.title).to.equal('Bacon Prosciutto')
+                    done()
+                test 'document object has content property',(done) ->
+                    expect(obj.content).to.exist
+                    done()
+                test 'document object has slug property',(done) ->
+                    console.log(obj.slug)
+                    expect(obj.slug).to.equal('posts-bacon-prosciutto')
+                    done()
                     

@@ -70,9 +70,12 @@ module.exports = (BasePlugin) ->
             #that hasn't yet been assigned a docId
             if !docId && slug
                 qry = {slug: slug}
-
-            document = @docpad.getCollection('posts').findOne(qry).toJSON()
-
+            
+            document = null
+            model = @docpad.getCollection('posts').findOne(qry)
+            if model
+                document = model.toJSON()
+                
             return document
                     
         getUserDetails: (req) ->

@@ -6,7 +6,7 @@ module.exports = (testers) ->
     fs = require('safefs')
     util = require('util')
     pathUtil = require('path')
-    beforeTest = require('./beforeTest')
+    cleanTestPaths = require('./cleanTestPaths')
 
     # Define My Tester
     class PropertiesExistTester extends testers.ServerTester
@@ -14,7 +14,7 @@ module.exports = (testers) ->
         #testGenerate: testers.RendererTester::testGenerate
         testCreate: ->
             tester = @
-            beforeTest(tester)
+            cleanTestPaths(tester)
             
             super
 

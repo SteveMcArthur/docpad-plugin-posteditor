@@ -110,7 +110,7 @@ module.exports = (testers) ->
                     expect(docMeta.docId).to.equal(opts.docId)
                     done()
                 test 'fileContent has expected content: docId', (done) ->
-                    m = fileContent.search(/^---\ndocId: 1463223638676/)
+                    m = fileContent.search(/docId: 1463223638676/)
                     expect(m).to.not.equal(-1)
                     done()
                 test 'fileContent has expected content: title', (done) ->
@@ -134,7 +134,7 @@ module.exports = (testers) ->
                     expect(m).to.equal(-1)
                     done()
                 test 'fileContent has expected content: slug', (done) ->
-                    m = fileContent.search(/slug: another-new-document\n---/)
+                    m = fileContent.search(/slug: another-new-document/)
                     expect(m).to.not.equal(-1)
                     done()
                 test 'fileContent has expected content: content', (done) ->

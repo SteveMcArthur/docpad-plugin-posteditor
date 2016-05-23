@@ -1,5 +1,6 @@
 getDocs = () ->
 
+    obj =
     [
         {
             title: "My New Document"
@@ -13,5 +14,8 @@ getDocs = () ->
             slug: 'another-new-document'
         }
     ]
+
+    return JSON.parse(JSON.stringify(obj))
+
 
 module.exports = getDocs()

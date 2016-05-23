@@ -50,6 +50,9 @@ module.exports = (BasePlugin) ->
             #remember to include the space character but not the tab (\t) or newline (\n)
             titleReg: /[^A-Za-z0-9_.\-~\?!:"'$@# ]/g
             
+            allowArbitraryMetadata: false
+            allowableMetadata: ['title','layout','tags','img','docId','slug','editdate','edit_user','edit_user_id','author']
+            
         validPaths: []
         
         ensurePaths: require('./helpers/ensurePaths')
@@ -72,7 +75,7 @@ module.exports = (BasePlugin) ->
                 qry = {slug: slug}
             
             document = null
-            model = @docpad.getCollection('posts').findOne(qry)
+            model = @docpad.getCollection(@config.postCollection).findOne(qry)
             if model
                 document = model.toJSON()
                 
@@ -82,7 +85,7 @@ module.exports = (BasePlugin) ->
             
             name = ""
             user_id = -1
-            if req.user
+            if req and req.user
                 name = req.user.name || req.user.username || req.user.screen_name || ""
                 user_id = req.user.our_id || req.user.userid || req.user.user_id || req.user.id || -1
             
@@ -107,7 +110,7 @@ module.exports = (BasePlugin) ->
          
             #check to see if the document already exists ie its an update
             # this is unnecessary as DocPad checks this automatically
-            model = @docpad.getCollection('posts').findOne({docId: docId})
+            model = @docpad.getCollection(@config.postCollection).findOne({docId: docId})
             
             #if so, load the existing document ready for regeneration
             if model
@@ -119,8 +122,21 @@ module.exports = (BasePlugin) ->
                 @docpad.getDatabase().add(model)
 
             @triggerGenerate(callback)
-            
-
+         
+        
+        populateCollections: (opts,next) ->
+            docpad = @docpad
+            plugin = @
+            user = @getUserDetails(null)
+            collection = docpad.getCollection(@config.postCollection).findAllLive().forEach (doc) ->
+                meta = doc.getAttributes().meta
+                if(!meta.docId)
+                    meta.content = doc.getContent()
+                    meta.user = user
+                    plugin.saveDocument(plugin,meta)
+      
+            next()
+        
                                             
         # Use to extend the server with routes that will be triggered before the DocPad routes.
         serverExtend: (opts) ->
@@ -148,18 +164,9 @@ module.exports = (BasePlugin) ->
 
                 if req.body.content and req.body.title
                     user = plugin.getUserDetails(req)
-                    opts =
-                        docId: req.body.docId
-                        content: req.body.content
-                        title: req.body.title
-                        tags: req.body.tags
-                        img: req.body.img
-                        slug: req.body.slug
-                        user: user
-                        
-                    config.customFields.forEach (item) ->
-                        opts.customFields[item] = req.body[item]
-                        
+                    opts = req.body
+                    opts.user = user
+
                     try
                         plugin.saveDocument plugin,opts,(result) ->
                             if result.success

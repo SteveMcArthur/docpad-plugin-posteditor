@@ -7,7 +7,6 @@ module.exports = (testers) ->
     util = require('util')
     path = require('path')
     cleanTestPaths = require('./cleanTestPaths')
-    testDocs = require('./testDocs')
 
     dataPath = null
     versionPath = null
@@ -93,15 +92,15 @@ module.exports = (testers) ->
                         
                 fullPath = ""
                 test 'create new doc', (done) ->
-                    content = testDocs[0].content
-                    title = testDocs[0].title
-                    filename = testDocs[0].title.replace(config.titleReg,'').trim().toLowerCase()
+                    content = "Some content I've written. What do you thing?"
+                    title = "My New Document"
+                    filename = title.replace(config.titleReg,'').trim().toLowerCase()
                     filename = filename.replace(/[ ]/g,'-')+".html.md"
                     fullPath = path.join(testSrcPosts,filename)
                     newDoc =
                         title: title
                         content: content
-                        user:  testDocs[0].user
+                        user: {name: 'johnsmith', user_id: 123456}
                         
                     plugin.saveDocument plugin,newDoc, (result) ->
                         expect(result.success).to.be.true
@@ -119,7 +118,7 @@ module.exports = (testers) ->
                         done()
                         
                 test 'document loaded in docpad collection', (done) ->
-                    title = testDocs[0].title
+                    title = "My New Document"
                     newdoc = getDocByTitle(title)
                     expect(newdoc).to.have.property('title')
                     done()

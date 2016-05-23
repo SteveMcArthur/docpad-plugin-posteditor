@@ -1,20 +1,25 @@
-fs = require('safefs')
+fs = require('fs-extra')
 util = require('util')
 path = require('path')
 
-createDoc = (tester) ->
-    outfile = path.join(tester.config.testPath, 'src', 'documents','posts','bacon-prosciutto.html.md')
+getFiles = (testPath) ->
+    items = fs.readdirSync(testPath)
+    files = items.map (name,idx) ->
+        file = path.join(testPath,name)
+        stat = fs.statSync(file)
+        if stat.isFile()
+            return file
+    return files
 
-    meta = "---\n"+
-        "docId: 1262200515233\n"+
-        "title: Bacon Prosciutto\n"+
-        "slug: posts-bacon-prosciutto\n"+
-        "layout: post\n"+
-        "---\n"
-    content = meta +
-        "Bacon ipsum dolor amet chuck porchetta tri-tip meatball spare ribs, picanha prosciutto rump tail beef. Salami pancetta ham short loin short ribs, landjaeger pork. Jowl turducken landjaeger, tri-tip kielbasa shank swine venison filet mignon flank sausage andouille. Leberkas short loin rump chuck bacon. Ham hock pork loin hamburger tri-tip porchetta drumstick.\n\n"
-        "Pancetta pastrami salami brisket tongue, pork chop flank tri-tip pork chuck swine. Venison drumstick pig, sausage alcatra prosciutto strip steak. Landjaeger brisket tail, salami sausage pork belly fatback turducken spare ribs shankle strip steak sirloin chuck meatball doner. Meatball pork brisket, bacon cow salami bresaola biltong beef ribs tongue jowl tenderloin frankfurter.\n"
+createDoc = (tester) ->
+    srcPath = path.join(tester.config.testPath, 'src', 'documents','posts')
+    testPostsPath = path.join(tester.config.testPath, 'test-posts')
     
-    fs.writeFileSync(outfile,content,'utf-8')
+    files = getFiles(testPostsPath)
+    files.forEach (file) ->
+        name = path.basename(file)
+        if name == "bacon-prosciutto.html.md"
+            outfile = path.join(srcPath,name)
+            fs.copySync(file,outfile)
     
 module.exports = createDoc

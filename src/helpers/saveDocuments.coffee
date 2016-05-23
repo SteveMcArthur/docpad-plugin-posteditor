@@ -55,57 +55,59 @@ mergeMetaData = (plugin, opts) ->
             if !opts[key]
                 opts[key] = val
     return {fullPath: document.fullPath,opts: opts}
-                
+
+#make sure arbritrary fields cannot
+#be added to a documents metadata
+cleanMetadata = (docMeta,opts,plugin) ->
+    config = plugin.getConfig()
+    customFields = config.customFields
+    for key,val of docMeta
+        if config.allowableMetadata.indexOf(key) == -1
+            delete docMeta[key]
+            
+    for key,val of customFields
+        if opts[key]
+            customVal = opts[key]
+            docMeta[key] = customVal.replace(titleReg,'').trim()
+        
+    return docMeta
 
 #build the actual text content of the document, including the metadata section
 buildContent = (opts,plugin) ->
    
-    {docId,content,title,tags,user,layout,img,slug, author,customFields} = opts
+    docMeta = opts
     config = plugin.getConfig()
     #/[^A-Za-z0-9_.\-~\?!:"'$@# ]/
     titleReg = config.titleReg
     sanitize = config.sanitize
-    content = sanitize(content)
-    title = title.replace(titleReg,'').trim()
+    content = sanitize(opts.content)
+    delete docMeta.content
+    docMeta.title = docMeta.title.replace(titleReg,'').trim()
 
     #if we have a slug use that, but make sure it only contains valid characters
     #Otherwise let docpad calculate the slug
-    if slug
-        slug = slugify(slug)
+    if docMeta.slug
+        docMeta.slug = slugify(docMeta.slug)
 
-    if tags
-        if Array.isArray(tags)
-            for i, val of tags
-                tags[i] = val.replace(titleReg,'').trim()
-        else
-            tags = tags.replace(titleReg,'').trim()
-
-    docMeta =
-        docId: parseInt(docId)
-        title: title
-        layout: layout || config.defaultLayout
-        editdate: (new Date()).toString()
-        edit_user: user.name
-        edit_user_id: user.user_id
+    if docMeta.tags
+        if !Array.isArray(docMeta.tags)
+            docMeta.tags = docMeta.tags.split(',')
+        for i, val of docMeta.tags
+            docMeta.tags[i] = val.replace(titleReg,'').trim()
         
-    if img
-        docMeta.img = img
-    if slug
-        docMeta.slug = slug
-    if tags
-        docMeta.tags = tags
-    if author
-        docMeta.author = author
-
-    #make sure arbritrary fields cannot
-    #be added to a documents metadata
-    if config.customFields
-        for key,val of config.customFields
-            customVal = customFields[key]
-            docMeta[key] = customVal.replace(titleReg,'').trim()
-
+    docMeta.docId = parseInt(docMeta.docId)
+    docMeta.layout = docMeta.layout || config.defaultLayout
+    docMeta.editdate = (new Date()).toString()
+    docMeta.edit_user = docMeta.user.name
+    docMeta.edit_user_id = docMeta.user.user_id
+    
+    if !config.allowArbitraryMetadata
+        docMeta = cleanMetadata(docMeta,opts,plugin)
+    
     meta = "---\n"
     for prop, val of docMeta
+        if Array.isArray(val)
+            val = JSON.stringify(val)
         meta += prop+": "+val+"\n"
     meta += "---\n"
 
@@ -127,6 +129,7 @@ checkInteger = (num) ->
 
 saveDocument = (plugin,opts,callback) ->
    
+    callback = callback || () ->
     if !opts.content or !opts.title or !opts.user
         callback({success:false, msg:'missing required fields'})
         return

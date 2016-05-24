@@ -3,6 +3,8 @@
 truncate = require('truncate-html')
 fs = require('fs')
 util = require('util')
+exec = require('child_process').exec
+path = require('path')
 docpadConfig =
 
     # =================================
@@ -185,7 +187,10 @@ docpadConfig =
     # You can find a full listing of events on the DocPad Wiki
 
     events:
-
+        
+        extendTemplateData: () ->
+            console.log("copy test files...")
+            exec('node copyfiles.js',[],{ stdio: 'inherit' })
         # Server Extend
         # Used to add our own custom routes to the server before the docpad routes are added
         serverExtend: (opts) ->
@@ -219,9 +224,8 @@ docpadConfig =
                     console.log(err)
                     res.status(500).json({success:false,msg:"unable to find images"})
                     
-            server.get '/admin/edit/:docId', (req,res,next) ->
+            server.get '/admin/edit/*', (req,res,next) ->
                 try
-                    docId = parseInt(req.params.docId)
                     editPage = docpad.getCollection('documents').findOne({slug: 'admin-edit'})
 
                     if editPage

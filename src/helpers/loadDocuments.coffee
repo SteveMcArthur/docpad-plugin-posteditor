@@ -1,4 +1,4 @@
-loadDocument = (docId,plugin,slug) ->
+loadDocument = (plugin,docId,slug) ->
     docpad = plugin.docpad
     config = plugin.getConfig()
 

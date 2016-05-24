@@ -48,7 +48,7 @@ module.exports = (testers) ->
                  
                 obj = null
                 test 'load document 1262200515233', (done) ->
-                    obj = plugin.loadDocument(1262200515233,plugin)
+                    obj = plugin.loadDocument(plugin,1262200515233)
                     expect(obj.success).to.be.true
                     done()
                 test 'document object has docId property',(done) ->

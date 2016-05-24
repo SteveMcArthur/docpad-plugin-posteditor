@@ -31,7 +31,7 @@ module.exports = (testers) ->
             super
                 
             # Test
-            @suite 'get document',(suite,test) ->
+            @suite 'request: load document',(suite,test) ->
                 # Prepare
                 
                 plugin = tester.docpad.getPlugin('posteditor')
@@ -42,6 +42,7 @@ module.exports = (testers) ->
                     fileUrl = "#{baseUrl}/load/1262200515233"
                     request fileUrl, (err,response,body) ->
                         obj = JSON.parse(body)
+                        console.log(obj)
                         expect(err).to.not.be.ok
                         done()
                 test 'document object has docId property',(done) ->
@@ -57,7 +58,7 @@ module.exports = (testers) ->
                     expect(obj.slug).to.equal('posts-bacon-prosciutto')
                     done()
 
-            @suite 'save document',(suite,test) ->
+            @suite 'request: save document',(suite,test) ->
                 # Prepare
                 slug = 'another-new-document'
                 newDoc =

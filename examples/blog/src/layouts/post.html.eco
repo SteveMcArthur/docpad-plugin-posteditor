@@ -7,7 +7,9 @@ layout: base
             <h1><a href="<%=@document.url %>"><%-@document.title%></a></h1>
             <p class="article_pub-date">Published
                 <time datetime="<%-@document.mtime.toISOString()%>" pubdate=""><%-@document.mtime.toDateString()%></time>
-                <span class="right edit"><a href="/admin/edit/<%-@document.docId%>?slug=<%-@document.slug%>">Edit</a></span>
+                <%editURL = if @document.docId then @document.docId else "?slug="+@document.slug%>
+                <%editURL = "/admin/edit/"+editURL%>
+                <span class="right edit"><a href="/admin/edit/<%-editURL%>">Edit</a></span>
             </p>
             <figure>
                 <img src="<%-@document.img%>" alt="">

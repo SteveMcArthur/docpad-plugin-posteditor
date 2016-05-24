@@ -123,7 +123,7 @@ module.exports = (BasePlugin) ->
 
             @triggerGenerate(callback)
          
-        
+        ###
         populateCollections: (opts,next) ->
             docpad = @docpad
             plugin = @
@@ -136,6 +136,7 @@ module.exports = (BasePlugin) ->
                     plugin.saveDocument(plugin,meta)
       
             next()
+        ###
         
                                             
         # Use to extend the server with routes that will be triggered before the DocPad routes.
@@ -150,8 +151,10 @@ module.exports = (BasePlugin) ->
 
             server.get config.loadURL, (req,res,next) ->
  
-                docId = parseInt(req.params.docId)
-                obj = plugin.loadDocument(docId,plugin)
+                param = req.params.docId
+                docId =  if isNaN(param) then null else parseInt(param)
+                slug =  if isNaN(param) then param.replace(config.titleReg,'').trim() else null
+                obj = plugin.loadDocument(plugin,docId,slug)
                 if obj.success
                     res.json(obj)
                 else

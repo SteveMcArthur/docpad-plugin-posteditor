@@ -48,8 +48,9 @@ $(document).ready(function () {
 
 
 
-    function getPost(id) {
+    function getPost(docId,slug) {
         //docURL += "?q=" + (new Date()).getTime();
+        var id = docId ? docId : slug;
         $.get('/load/' + id)
             .done(function (data) {
                 $('#post-title').val(data.title);
@@ -163,7 +164,7 @@ $(document).ready(function () {
                 alert(msg);
             });
     }
-    
+
     loadImages();
 
     $("#image-picker").dialog({
@@ -185,13 +186,17 @@ $(document).ready(function () {
 
     $('.new-btn').css('display', 'inline');
 
+
+    var qry = window.location.search;
     var items = window.location.pathname.split('/');
     var docIdStr = items[items.length - 1];
     var docId = parseInt(docIdStr);
-
-    if (docId) {
-        getPost(docId);
-
+    if(isNaN(docId)){
+        docId = null;
     }
+    var slug = qry.substr(0,6) == '?slug=' ? qry.substr(6) : null;
+
+    getPost(docId,slug);
+
 
 });

@@ -61,47 +61,83 @@ The plugin is designed to work with an existing authentication/login system - al
 ### Example JS for loading an article/post
 
 ```js
-    function loadPost() {
-        var id = $(this).attr('data-id');
+    function getPost(docId,slug) {
+        var id = docId ? docId : slug;
         $.get('/load/' + id)
             .done(function (data) {
-                postTitle.val(data.title);
-                editor.val(data.content);
-                docIdEl.text(data.docId);
+                $('#post-title').val(data.title);
+                $('#slug').text(data.slug);
+                $('#feature-img').attr('src', data.img);
+                $('#docId').text(data.docId);
+                var tags = $('#tags');
+                for (var i = 0; i < data.tags.length; i++) {
+                    tags.append('<li><a class="icon-cancel-circle"></a>' + data.tags[i] + "</li>");
+                }
+
+                CKEDITOR.instances.editor1.setData(data.content, {
+                    callback: function () {
+                        var btn = $('.cke_voice_label:contains("save")').parent();
+                        btn.addClass('save-btn');
+                    }
+                });
+
             });
     }
 ```
 
 ### Example JS for saving an article/post
 ```js
-    function savePost() {
-        editLoader.show();
-        var title = postTitle.val();
-        var content = editor.val();
-        var docIdStr = docIdEl.html();
-        var docId = parseInt(docIdStr);
+    function postData() {
+        var txt = downshow(CKEDITOR.instances.editor1.getData());
+        var title = $('#post-title').val();
+        var slug = $('#slug').text();
+        var docId = parseInt($('#docId').text());
+        var inputs = $('#tags li');
+        var tags = [];
+        inputs.each(function () {
+            tags.push($(this).text());
+        });
 
-        var obj = {
-            content: content,
-            title: title
-        };
-        if ((typeof docId == "number") && (!isNaN(docId))) {
-            obj.docId = docId;
+        //check we actually have something written
+        //and that we have a title
+        if (txt.length < 10) {
+            alert("Write something first!");
+        } else if (title.length < 2) {
+            $('#title-callout').fadeIn();
+            var titleCallout = function () {
+                $('#title-callout').fadeOut();
+                $(this).unbind('click', titleCallout);
+            };
+            $('#post-title').click(titleCallout);
+
+
+        } else {
+            $('#edit-loader').show();
+
+            var obj = {
+                content: txt,
+                title: title,
+                slug: slug,
+                tags: tags,
+                docId: docId
+            };
+
+            $.post('/save', obj)
+                .done(function () {
+                    $('#edit-msg').show();
+                    $('#edit-loader').fadeOut(1000, function () {
+                        $('#edit-msg').fadeOut(1000);
+                    });
+                })
+                .fail(function (xhr, err, msg) {
+                    $('#edit-loader').fadeOut(500);
+                    $('#edit-msg').fadeOut(500);
+                    alert(msg);
+                });
         }
 
-
-        $.post("/save", obj)
-            .done(function (data) {
-                editMsg.show(); //show a message confirming the save
-                editLoader.fadeOut(1000, function () {
-                    editMsg.fadeOut(1000);
-                });
-            })
-            .fail(function (xhr, err, msg) {
-                editLoader.fadeOut();
-                alert(msg);
-            });
     }
+
 ```
 
 ## Regeneration of saved posts

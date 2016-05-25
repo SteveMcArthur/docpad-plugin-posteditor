@@ -101,10 +101,13 @@ module.exports = (testers) ->
 
                     test '100th saved (src) post current', (done) ->
                         file = path.join(testSrcPosts,'long-text-0.html.md')
-                        fileObj = dummyFiles.getFileObject(file)
-                        expect(fileObj.title).to.equal('Long Text 100')
-                        #need to give the DocPad regeneration process time to catch up
-                        setTimeout(done,1000)
+                        #need to give the test process AND the DocPad regeneration process time to catch up
+                        fn = () ->
+                            fileObj = dummyFiles.getFileObject(file)
+                            expect(fileObj.title).to.equal('Long Text 100')
+                            done()
+                        setTimeout(fn,1000)
+
                     test '100th saved (out) post current', (done) ->
                         file = path.join(testOutPosts,'long-text-0.html')
                         html = readFile(file)

@@ -49,7 +49,6 @@ $(document).ready(function () {
 
 
     function getPost(docId,slug) {
-        //docURL += "?q=" + (new Date()).getTime();
         var id = docId ? docId : slug;
         $.get('/load/' + id)
             .done(function (data) {

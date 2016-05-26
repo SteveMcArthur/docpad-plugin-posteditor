@@ -17,7 +17,9 @@ scripts: "<script>$('.new-btn').css('display','inline');</script>"
     <%posts = @getPosts()%>
     <%for post in posts:%>
     <tr data-slug="<%-post.slug%>" data-id="<%-post.docId%>">
-      <td><a href="/admin/edit/<%-post.docId%>"><i class="icon-pencil"></i><%-post.title%></a></td>
+      <%editURL = if post.docId then post.docId else "?slug="+post.slug%>
+      <%editURL = "/admin/edit/"+editURL%>
+      <td><a href="<%-editURL%>"><i class="icon-pencil"></i><%-post.title%></a></td>
       <td><%-post.author%></td>
       <td><%-post.tags%></td>
       <td><%-post.ctime.toDateString()%></td>

@@ -152,6 +152,9 @@ docpadConfig =
     plugins:
 
         authentication:
+            #replace this with '/admin/*' when
+            #clientID and clientSecret setup
+            #in environment file
             protectedUrls: ['/test/*'],
                     
             strategies:

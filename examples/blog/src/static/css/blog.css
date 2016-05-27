@@ -2,8 +2,8 @@
     width: 90%;
     margin-left: auto;
     margin-right: auto;
-    margin-top: 45px;
-    min-height: 90%;
+    padding-top: 45px;
+/*    min-height: 90%;*/
 }
 .widget {
     margin-top: 1em;

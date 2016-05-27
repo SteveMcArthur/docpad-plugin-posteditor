@@ -11,6 +11,7 @@ scripts: "<script>$('.new-btn').css('display','inline');</script>"
       <th>Author</th>
       <th>Tags</th>
       <th>Date</th>
+      <th>Slub</th>
     </tr>
   </thead>
   <tbody>
@@ -19,10 +20,12 @@ scripts: "<script>$('.new-btn').css('display','inline');</script>"
     <tr data-slug="<%-post.slug%>" data-id="<%-post.docId%>">
       <%editURL = if post.docId then post.docId else "?slug="+post.slug%>
       <%editURL = "/admin/edit/"+editURL%>
+      
       <td><a href="<%-editURL%>"><i class="icon-pencil"></i><%-post.title%></a></td>
       <td><%-post.author%></td>
       <td><%-post.tags%></td>
       <td><%-post.ctime.toDateString()%></td>
+     <td><%-post.slug%></td>
     </tr>
     <%end%>
   </tbody>

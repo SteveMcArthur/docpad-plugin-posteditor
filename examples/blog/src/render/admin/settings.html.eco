@@ -2,3 +2,22 @@
 layout: admin
 title: Settings
 ---
+
+<table width="100%">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Value</th>
+    </tr>
+  </thead>
+  <tbody>
+    <%settings = @getSettings()%>
+    <%for name,val of settings:%>
+    <%rowClass = typeof val%>
+    <tr class="<%-rowClass%>" data-name="<%-name%>">  
+      <td><a data-id="<%-name%>" class="readme-btn" href="/admin/readme/"><%-name%></a></td>
+      <td><%-val%></td>
+    </tr>
+    <%end%>
+  </tbody>
+</table>

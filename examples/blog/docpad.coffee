@@ -1,9 +1,8 @@
 # The DocPad Configuration File
 # It is simply a CoffeeScript Object which is parsed by CSON
 truncate = require('truncate-html')
-fs = require('fs')
+fs = require('safefs')
 util = require('util')
-exec = require('child_process').exec
 path = require('path')
 docpadConfig =
 
@@ -56,12 +55,7 @@ docpadConfig =
 
             # The website's scripts
             scripts: [
-                """
-                <!-- jQuery -->
-                <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.0/jquery.min.js"></script>
-                <script>window.jQuery || document.write('<script src="/vendor/jquery.js"><\\/script>')</script>
-                """
-
+                '/js/jquery.js'
                 '/js/modernizr.js'
                 '/js/foundation.min.js'
             ]
@@ -100,6 +94,30 @@ docpadConfig =
         truncateText: (content,trimTo) ->
             trimTo = trimTo || 200
             return if content then truncate(content,trimTo) else ''
+            
+        #for debugging purposes
+        writeObject: (obj,name) ->
+            fs.writeFile(name+".json",@inspect(obj))
+            
+        writeObject2: (obj,name) ->
+            output = {}
+            for key, val of obj
+                output[key] = val
+            fs.writeFile(name+".json",@inspect(output))
+
+        inspect: (obj) ->
+            util.inspect(obj)
+            
+        inspect2: (obj) ->
+            util.inspect(Object.keys(obj))
+            
+        getSettings: () ->
+            settings = {}
+            cfg = @config
+            Object.keys(cfg).sort().forEach (key) ->
+                settings[key] = cfg[key]
+            return settings
+            
 
 
     # =================================
@@ -122,39 +140,15 @@ docpadConfig =
             @getCollection('posts').findAll({},{},{limit:4})
             
 
-      
-    #-------------------------------------------------------------------------------------#
-    #Membership related code used by the findOrCreate method passed to the authentication plugin
-    users: [ {
-        our_id: 1,
-        service_id: 2044632,
-        service: "github",
-        name: "SteveMcArthur",
-        email: "contact@stevemcarthur.co.uk",
-        adminUser: true,
-        linked_ids: []
-    }]
-    
-    
-    findOne: (id,service) ->
-        for item in @users
-            if item.service_id == id && item.service == service
-                return item
-        return false
-
-    
-    #End Membership code
-    #-------------------------------------------------------------------------------------#
-
     # =================================
     # Plugin
 
     plugins:
 
         authentication:
-            #replace this with '/admin/*' when
-            #clientID and clientSecret setup
-            #in environment file
+            #change this to '/admin/*' once
+            #client secret and client ID setup in
+            #environment file
             protectedUrls: ['/test/*'],
                     
             strategies:
@@ -190,10 +184,29 @@ docpadConfig =
     # You can find a full listing of events on the DocPad Wiki
 
     events:
+    
+        docpadReady: () ->            
+
+            loadedPlugins = @docpad.loadedPlugins
+            @docpad.getConfig().templateData.loadedPlugins = loadedPlugins
+            @docpad.getConfig().templateData.config =  @docpad.getConfig()
+            
+            pluginsPaths = @docpad.getConfig().pluginsPaths
+            pluginsDesc = {}
+            for name, val of loadedPlugins
+                pluginsPaths.forEach (dirPath) ->
+                    try
+                        file = path.join(dirPath,'docpad-plugin-'+name,'package.json')
+                        txt = fs.readFileSync(file,'utf-8')
+                        obj = JSON.parse(txt)
+                        if !loadedPlugins[name].description
+                            loadedPlugins[name].description = obj.description
+                    catch err            
+            
+            #Chain
+            @
         
-        extendTemplateData: () ->
-            console.log("copy test files...")
-            exec('node copyfiles.js',[],{ stdio: 'inherit' })
+
         # Server Extend
         # Used to add our own custom routes to the server before the docpad routes are added
         serverExtend: (opts) ->
@@ -214,6 +227,41 @@ docpadConfig =
                     res.redirect(newUrl+req.url, 301)
                 else
                     next()
+                    
+            server.get '/admin/plugins/:pluginName/readme', (req,res,next) ->
+                name = req.params.pluginName
+                console.log("Plugin="+name)
+                if name
+                    pluginsPaths = latestConfig.pluginsPaths
+                    txt = ""
+                    pluginsPaths.forEach (dirPath) ->
+                        try
+                            file = path.join(dirPath,'docpad-plugin-'+name,'README.md')
+                            txt = fs.readFileSync(file,'utf-8')
+                        catch err
+                    
+                    res.send(txt)
+                else
+                    res.status(500).json({success:false,msg:"no plugin name"})
+                    
+                    
+            server.get '/admin/plugins/:pluginName/package', (req,res,next) ->
+                name = req.params.pluginName
+                console.log("Plugin="+name)
+                if name
+                    pluginsPaths = latestConfig.pluginsPaths
+                    txt = ""
+                    pluginsPaths.forEach (dirPath) ->
+                        try
+                            file = path.join(dirPath,'docpad-plugin-'+name,'package.json')
+                            txt = fs.readFileSync(file,'utf-8')
+                        catch err
+                    
+                    res.send(txt)
+                else
+                    res.status(500).json({success:false,msg:"no plugin name"})
+                    
+                    
                     
             server.get '/admin/images', (req,res,next) ->
                 try

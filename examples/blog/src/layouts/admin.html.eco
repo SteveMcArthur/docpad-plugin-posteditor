@@ -14,7 +14,7 @@ layout: base
         </ul>
     </aside>
     <!-- End Sidebar -->
-    <div class="small-9 medium-10 columns" role="content">
+    <div class="small-9 medium-10 columns content" role="content">
         <article>
             <div class="title row">
                 <div class="large-9 columns">
@@ -30,6 +30,7 @@ layout: base
             </div>
         </article>
     </div>
+    <div style="clear:both;"></div>
 </section>
 <script>
     var t = document.getElementsByTagName('title')[0].innerHTML;

@@ -184,6 +184,8 @@ $(document).ready(function () {
     });
 
     $('.new-btn').css('display', 'inline');
+    
+    
 
 
     var qry = window.location.search;
@@ -196,6 +198,8 @@ $(document).ready(function () {
     var slug = qry.substr(0,6) == '?slug=' ? qry.substr(6) : null;
 
     getPost(docId,slug);
+    
+
 
 
 });

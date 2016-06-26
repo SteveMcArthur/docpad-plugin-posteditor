@@ -63,6 +63,10 @@ module.exports = (BasePlugin) ->
             super
             
             plugin = @
+            #check the format of the loadURL
+            loadURL = plugin.getConfig().loadURL
+            if loadURL.indexOf(':docId') < (loadURL.length - 6)
+                plugin.docpad.warn("posteditor: loadURL incorrectly configured: "+loadURL)
             #setup data, versions and documents path
             @ensurePaths(@docpad,plugin)
             
@@ -72,7 +76,8 @@ module.exports = (BasePlugin) ->
             #possibility of loading a document
             #that hasn't yet been assigned a docId
             if !docId && slug
-                qry = {slug: slug}
+                slug = slug.replace(/^\//,'')
+                qry = {slug: $in: [slug,'/'+slug]}
             
             document = null
             model = @docpad.getCollection(@config.postCollection).findOne(qry)
@@ -150,7 +155,6 @@ module.exports = (BasePlugin) ->
             sanitize = config.sanitize
 
             server.get config.loadURL, (req,res,next) ->
- 
                 param = req.params.docId
                 docId =  if isNaN(param) then null else parseInt(param)
                 slug =  if isNaN(param) then param.replace(config.titleReg,'').trim() else null

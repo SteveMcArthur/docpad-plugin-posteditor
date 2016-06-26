@@ -6,6 +6,7 @@ util = require('util')
 path = require('path')
 docpadConfig =
 
+    port: 9779
     # =================================
     # Template Data
     # These are variables that will be accessible via our templates
@@ -185,23 +186,9 @@ docpadConfig =
 
     events:
     
-        docpadReady: () ->            
+        docpadReady: () ->
 
-            loadedPlugins = @docpad.loadedPlugins
-            @docpad.getConfig().templateData.loadedPlugins = loadedPlugins
             @docpad.getConfig().templateData.config =  @docpad.getConfig()
-            
-            pluginsPaths = @docpad.getConfig().pluginsPaths
-            pluginsDesc = {}
-            for name, val of loadedPlugins
-                pluginsPaths.forEach (dirPath) ->
-                    try
-                        file = path.join(dirPath,'docpad-plugin-'+name,'package.json')
-                        txt = fs.readFileSync(file,'utf-8')
-                        obj = JSON.parse(txt)
-                        if !loadedPlugins[name].description
-                            loadedPlugins[name].description = obj.description
-                    catch err            
             
             #Chain
             @
@@ -227,40 +214,6 @@ docpadConfig =
                     res.redirect(newUrl+req.url, 301)
                 else
                     next()
-                    
-            server.get '/admin/plugins/:pluginName/readme', (req,res,next) ->
-                name = req.params.pluginName
-                console.log("Plugin="+name)
-                if name
-                    pluginsPaths = latestConfig.pluginsPaths
-                    txt = ""
-                    pluginsPaths.forEach (dirPath) ->
-                        try
-                            file = path.join(dirPath,'docpad-plugin-'+name,'README.md')
-                            txt = fs.readFileSync(file,'utf-8')
-                        catch err
-                    
-                    res.send(txt)
-                else
-                    res.status(500).json({success:false,msg:"no plugin name"})
-                    
-                    
-            server.get '/admin/plugins/:pluginName/package', (req,res,next) ->
-                name = req.params.pluginName
-                console.log("Plugin="+name)
-                if name
-                    pluginsPaths = latestConfig.pluginsPaths
-                    txt = ""
-                    pluginsPaths.forEach (dirPath) ->
-                        try
-                            file = path.join(dirPath,'docpad-plugin-'+name,'package.json')
-                            txt = fs.readFileSync(file,'utf-8')
-                        catch err
-                    
-                    res.send(txt)
-                else
-                    res.status(500).json({success:false,msg:"no plugin name"})
-                    
                     
                     
             server.get '/admin/images', (req,res,next) ->

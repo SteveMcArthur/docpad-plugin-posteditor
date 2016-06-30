@@ -14,7 +14,7 @@ module.exports = (testers) ->
     testSrcPosts = null
 
     # Define My Tester
-    class PosteditorTester extends testers.ServerTester
+    class SanitycheckTester extends testers.ServerTester
         # Test Generate
         #testGenerate: testers.RendererTester::testGenerate
 

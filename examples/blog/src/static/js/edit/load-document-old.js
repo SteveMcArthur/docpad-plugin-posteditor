@@ -196,7 +196,9 @@ $(document).ready(function () {
         docId = null;
     }
     var slug = qry.substr(0,6) == '?slug=' ? qry.substr(6) : null;
-
+    if(slug[0] === "/"){
+        slug = slug.substr(1);
+    }
     getPost(docId,slug);
     
 

@@ -32,14 +32,17 @@
   },
   "dependencies": {
     "bleach": "^0.3.0",
-    "chai": "^3.5.0",
     "fs-extra": "^0.30.0",
     "request": "^2.72.0",
     "safefs": "^3.1.1"
   },
   "devDependencies": {
     "coffee-script": "~1.6.3",
-    "docpad": "6"
+    "docpad": "6",
+    "joe": "1.6.0",
+    "chai": "^3.5.0",
+    "assert-helpers": "^4.4.0",
+	"joe-reporter-console": "1.2.1"
   },
   "main": "./out/posteditor.plugin.js",
   "scripts": {

@@ -99,7 +99,7 @@ module.exports = (BasePlugin) ->
         triggerGenerate: (callback) ->
             @docpad.action 'generate', reset: false, (err) ->
                 if err
-                    @docpad.log "warn", "GENERATE ERROR"
+                    @docpad.log "warn", "GENERATE ERROR IN POSTEDITOR"
                 else
                     if callback
                         callback()

@@ -24,7 +24,9 @@ function posteditor(el, opts) {
         editMsgEl: '#edit-msg' || opts.editMsgEl,
         editLoaderEl: '#edit-loader' || opts.editLoaderEl,
         imagesURL: '/admin/images' || opts.imagesURL,
-        imagePickerEl: '#image-picker ul' || opts.imagePickerEl
+        imagePickerEl: '#image-picker ul' || opts.imagePickerEl,
+        editDateEl : '#last-edit span' || opts.editDateEl,
+        authorEl : '#author span' || opts.authorEl
     };
     this.init(el);
 
@@ -51,6 +53,9 @@ posteditor.prototype.getPost = function (id) {
             $(cfg.slugEl).text(data.slug);
             $(cfg.featureImgEl).attr('src', data.img);
             $(cfg.docidEl).text(data.docId);
+            $(cfg.authorEl).text(data.author);
+            var editDate = new Date(data.editdate);
+            $(cfg.editDateEl).text(editDate.toDateString());
             var tags = $(cfg.tagsEl);
             for (var i = 0; i < data.tags.length; i++) {
                 tags.append('<li><a class="icon-cancel-circle"></a>' + data.tags[i] + "</li>");
@@ -72,6 +77,8 @@ posteditor.prototype.postData = function () {
     var title = $(cfg.titleEl).val();
     var slug = $(cfg.slugEl).text();
     var docId = parseInt($(cfg.docidEl).text());
+    var author = $(cfg.authorEl).text();
+    var img = $(cfg.featureImgEl).text();
     var inputs = $(cfg.tagsEl + ' li');
     var tags = [];
     inputs.each(function () {
@@ -99,7 +106,9 @@ posteditor.prototype.postData = function () {
             title: title,
             slug: slug,
             tags: tags,
-            docId: docId
+            docId: docId,
+            author: author,
+            img: img
         };
 
         $.post(cfg.saveURL, obj)

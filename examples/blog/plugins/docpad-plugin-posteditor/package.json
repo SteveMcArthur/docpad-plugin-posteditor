@@ -1,6 +1,6 @@
 {
   "name": "docpad-plugin-posteditor",
-  "version": "2.1.1",
+  "version": "2.1.0",
   "description": "Docpad plugin that allows the saving and loading of posts",
   "homepage": "https://github.com/SteveMcArthur/docpad-plugin-posteditor",
   "keywords": [

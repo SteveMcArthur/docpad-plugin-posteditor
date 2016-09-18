@@ -25,6 +25,9 @@ loadDocument = (plugin,docId,slug) ->
                 editdate: document.editdate
                 tags: tags
                 img: document.img
+                author: document.author
+                createdate: document.ctime
+                modifieddate: document.mtime
                 success: true
 
             config.customFields.forEach (item) ->

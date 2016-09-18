@@ -38,7 +38,6 @@
     "docpad-plugin-marked": "^2.3.0",
     "docpad-plugin-partials": "^2.9.2",
     "docpad-plugin-pluginmanager": "^2.0.0",
-    "docpad-plugin-posteditor": "^2.0.0",
     "truncate-html": "0.0.6"
   },
   "devDependencies": {

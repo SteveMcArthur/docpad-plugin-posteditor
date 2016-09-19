@@ -109,12 +109,19 @@ module.exports = (testers) ->
                 test 'returns docMeta.docId', (done) ->
                     expect(docMeta.docId).to.equal(opts.docId)
                     done()
+                test 'returns docMeta.author', (done) ->
+                    expect(docMeta.author).to.equal(opts.author)
+                    done()
                 test 'fileContent has expected content: docId', (done) ->
                     m = fileContent.search(/docId: 1463223638676/)
                     expect(m).to.not.equal(-1)
                     done()
                 test 'fileContent has expected content: title', (done) ->
                     m = fileContent.search(/title: Another New Document/)
+                    expect(m).to.not.equal(-1)
+                    done()
+                test 'fileContent has expected content: author', (done) ->
+                    m = fileContent.search(/author: Ann Smith/)
                     expect(m).to.not.equal(-1)
                     done()
                 test 'fileContent has expected content: layout', (done) ->
@@ -165,6 +172,9 @@ module.exports = (testers) ->
                 test 'doc1 has content', (done) ->
                     expect(result.content).to.equal(doc1.content)
                     done()
+                test 'doc1 has author', (done) ->
+                    expect(result.author).to.equal(doc1.author)
+                    done()
                 test 'doc1 has slug', (done) ->
                     expect(result.slug).to.equal(doc1.slug)
                     done()
@@ -189,6 +199,7 @@ module.exports = (testers) ->
                     docId: document.docId
                     content: "xxx"+document.content
                     title: "xxx"+document.title
+                    author: document.author
                     tags: document.tags
                     img: document.img
                     slug: document.slug
@@ -206,6 +217,9 @@ module.exports = (testers) ->
                     done()
                 test 'document has content', (done) ->
                     expect(result.content).to.equal(opts.content)
+                    done()
+                test 'document has author', (done) ->
+                    expect(result.author).to.equal(opts.author)
                     done()
                 test 'document has slug', (done) ->
                     expect(result.slug).to.equal(opts.slug)

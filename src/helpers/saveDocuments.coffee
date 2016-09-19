@@ -134,12 +134,11 @@ saveDocument = (plugin,opts,callback) ->
         callback({success:false, msg:'missing required fields'})
         return
     opts.docId = checkInteger(opts.docId)
-    
     #need method to ensure that existing documents all have a docId
     if !opts.docId
         #create document
         opts.docId = (new Date()).getTime()
-        opts.author =  opts.user.name
+        opts.author =  opts.author || opts.user.name
         opts.creationdate = (new Date()).toString()
         {fileContent,docMeta} = buildContent(opts,plugin)
         fullPath = getPath(plugin,docMeta.title)

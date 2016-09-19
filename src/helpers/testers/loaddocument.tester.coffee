@@ -64,4 +64,8 @@ module.exports = (testers) ->
                     console.log(obj.slug)
                     expect(obj.slug).to.equal('posts-bacon-prosciutto')
                     done()
+                test 'document object has author property',(done) ->
+                    console.log(obj.author)
+                    expect(obj.author).to.equal('John Smith')
+                    done()
                     

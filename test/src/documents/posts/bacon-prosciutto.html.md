@@ -1,6 +1,7 @@
 ---
 docId: 1262200515233
 title: Bacon Prosciutto
+author: John Smith
 slug: posts-bacon-prosciutto
 layout: post
 ---

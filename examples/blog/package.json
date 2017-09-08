@@ -27,18 +27,18 @@
     "url": "https://github.com/SteveMcArthur/{name}"
   },
   "engines": {
-    "node": "^0.12.2",
-    "npm": "^2.76"
+    "node": ">=0.10",
+    "npm": ">=2.5.0"
   },
   "dependencies": {
-    "docpad": "^6.78.0",
-    "docpad-plugin-authentication": "^2.4.2",
-    "docpad-plugin-cleanurls": "^2.8.1",
-    "docpad-plugin-eco": "^2.1.0",
-    "docpad-plugin-marked": "^2.3.0",
-    "docpad-plugin-partials": "^2.9.2",
-    "docpad-plugin-pluginmanager": "^2.0.0",
-    "truncate-html": "0.0.6"
+    "docpad": "^6.79.4",
+    "docpad-plugin-authentication": "^2.5.2",
+    "docpad-plugin-cleanurls": "^2.10.0",
+    "docpad-plugin-eco": "^2.2.1",
+    "docpad-plugin-marked": "^2.4.0",
+    "docpad-plugin-partials": "^2.11.0",
+    "docpad-plugin-posteditor": "^2.1.2",
+    "truncate-html": "^0.1.4"
   },
   "devDependencies": {
     "docpad-plugin-livereload": "^2.6.1"

@@ -6,7 +6,7 @@ util = require('util')
 path = require('path')
 docpadConfig =
 
-    port: 9779
+    port: 9778
     # =================================
     # Template Data
     # These are variables that will be accessible via our templates

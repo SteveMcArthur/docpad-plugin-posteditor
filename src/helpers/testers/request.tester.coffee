@@ -11,6 +11,10 @@ module.exports = (testers) ->
     dataPath = null
     versionPath = null
     testSrcPosts = null
+    makeRequest = (url,callback) ->
+        setTimeout ->
+            request(url, callback)
+        ,3000
 
     # Define My Tester
     class PosteditorTester extends testers.ServerTester
@@ -40,9 +44,11 @@ module.exports = (testers) ->
                 obj = null
                 test 'get document', (done) ->
                     fileUrl = "#{baseUrl}/load/1262200515233"
-                    request fileUrl, (err,response,body) ->
+                    makeRequest fileUrl, (err,response,body) ->
                         if err 
                             console.error(err)
+                        else
+                            console.log("Request to '"+fileUrl+"' successful")
                         obj = JSON.parse(body)
                         console.log(obj)
                         expect(err).to.not.be.ok

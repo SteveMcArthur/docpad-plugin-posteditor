@@ -12,9 +12,11 @@ module.exports = (testers) ->
     versionPath = null
     testSrcPosts = null
     makeRequest = (url,callback) ->
+        console.log("makeRequest...")
         setTimeout ->
+            console.log("requesting: "+url)
             request(url, callback)
-        ,3000
+        ,4000
 
     # Define My Tester
     class PosteditorTester extends testers.ServerTester

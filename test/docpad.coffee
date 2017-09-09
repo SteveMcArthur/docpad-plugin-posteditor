@@ -36,5 +36,12 @@ docpadConfig =
             generateHomePage: true
             sendRenderedContent: false
 
+    events:
+        serverExtend: (opts) ->
+            cfg = @docpad.getConfig()
+            console.log("serverExtend")
+            console.log(cfg.port)
+
+
 # Export our DocPad Configuration
 module.exports = docpadConfig

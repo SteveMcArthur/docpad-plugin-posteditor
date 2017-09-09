@@ -25,7 +25,8 @@
     "url": "https://github.com/SteveMcArthur/docpad-plugin-posteditor.git"
   },
   "engines": {
-    "node": ">=0.8"
+    "node": ">=0.8",
+    "npm": ">=2.5.0"
   },
   "peerDependencies": {
     "docpad": "6"

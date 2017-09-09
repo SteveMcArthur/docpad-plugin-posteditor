@@ -41,6 +41,8 @@ module.exports = (testers) ->
                 test 'get document', (done) ->
                     fileUrl = "#{baseUrl}/load/1262200515233"
                     request fileUrl, (err,response,body) ->
+                        if err 
+                            console.error(err)
                         obj = JSON.parse(body)
                         console.log(obj)
                         expect(err).to.not.be.ok

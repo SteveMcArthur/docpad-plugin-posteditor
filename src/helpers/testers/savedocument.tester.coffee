@@ -2,7 +2,6 @@
 module.exports = (testers) ->
     # PRepare
     {expect} = require('chai')
-    request = require('request')
     fs = require('safefs')
     path = require('path')
     util = require('util')
